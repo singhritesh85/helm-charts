@@ -6,8 +6,10 @@ replicas: 1
 #
 # Note that when overriding logstash.yml, `http.host: 0.0.0.0` should always be included
 # to make default probes work.
-logstashConfig: {}
-#  logstash.yml: |
+logstashConfig:   #{}
+  logstash.yml: |
+    http.host: "0.0.0.0"
+    path.config: /usr/share/logstash/pipeline
 #    key:
 #      nestedkey: value
 #  log4j2.properties: |
@@ -15,8 +17,31 @@ logstashConfig: {}
 
 # Allows you to add any pipeline files in /usr/share/logstash/pipeline/
 ### ***warn*** there is a hardcoded logstash.conf in the image, override it first
-logstashPipeline: {}
-#  logstash.conf: |
+logstashPipeline:    #{}
+  logstash.conf: |
+    logstash.conf: |
+    input {
+      beats {
+        port => 5044
+      }
+    }
+    filter {
+      if [message] =~ /^\{.*\}$/ {
+        json {
+          source => "message"
+        }
+      }
+      if [ClientHost] {
+        geoip {
+          source => "ClientHost"
+        }
+      }
+    }
+    output {
+        elasticsearch {
+            hosts => [ "elasticsearch-master:9200" ]
+        }
+    }
 #    input {
 #      exec {
 #        command => "uptime"
@@ -254,15 +279,15 @@ lifecycle: {}
   #   exec:
   #     command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
 
-service: {}
-#  annotations: {}
-#  type: ClusterIP
+service:   #{}
+  annotations: {}
+  type: ClusterIP
 #  loadBalancerIP: ""
-#  ports:
-#    - name: beats
-#      port: 5044
-#      protocol: TCP
-#      targetPort: 5044
+  ports:
+    - name: beats
+      port: 5044
+      protocol: TCP
+      targetPort: 5044
 #    - name: http
 #      port: 8080
 #      protocol: TCP
