@@ -19,7 +19,6 @@ logstashConfig:   #{}
 ### ***warn*** there is a hardcoded logstash.conf in the image, override it first
 logstashPipeline:    #{}
   logstash.conf: |
-    logstash.conf: |
     input {
       beats {
         port => 5044
