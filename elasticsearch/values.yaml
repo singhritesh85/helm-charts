@@ -104,10 +104,11 @@ initResources: {}
 networkHost: "0.0.0.0"
 
 volumeClaimTemplate:
+  storageClassName: nfs-client
   accessModes: ["ReadWriteOnce"]
   resources:
     requests:
-      storage: 30Gi
+      storage: 2Gi
 
 rbac:
   create: false
