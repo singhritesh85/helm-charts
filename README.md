@@ -16,6 +16,22 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
+For Installing Elasticsearch you should create storageclass gp2 as given below:-
+
+# cat gp2-storage-class.yaml 
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gp2
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+  fsType: ext4 
+  
+Reference:-  https://docs.aws.amazon.com/eks/latest/userguide/storage-classes.html
+
 ## Charts
 
 These Helm charts are designed to be a lightweight way to configure Elastic
