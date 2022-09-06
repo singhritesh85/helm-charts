@@ -1,5 +1,26 @@
 # Elasticsearch Helm Chart
 
+For Installing Elasticsearch you should create storageclass gp2 as given below:-
+
+# cat gp2-storage-class.yaml 
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gp2
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+  fsType: ext4 
+  
+Reference:-  https://docs.aws.amazon.com/eks/latest/userguide/storage-classes.html
+
+
+
+
+
+
 #[![Build Status](https://img.shields.io/jenkins/s/https/devops-ci.elastic.co/job/elastic+helm-charts+main.svg)](https://devops-ci.elastic.co/job/elastic+helm-charts+main/) [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/elastic)](https://artifacthub.io/packages/search?repo=elastic)
 
 This Helm chart is a lightweight way to configure and run our official
@@ -38,24 +59,6 @@ This Helm chart is a lightweight way to configure and run our official
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- Use this to update TOC: -->
 <!-- docker run --rm -it -v $(pwd):/usr/src jorgeandrada/doctoc --github -->
-
-
-For Installing Elasticsearch you should create storageclass gp2 as given below:-
-
-# cat gp2-storage-class.yaml 
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: gp2
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "true"
-provisioner: kubernetes.io/aws-ebs
-parameters:
-  type: gp2
-  fsType: ext4 
-  
-Reference:-  https://docs.aws.amazon.com/eks/latest/userguide/storage-classes.html
-
 
 ## Requirements
 
