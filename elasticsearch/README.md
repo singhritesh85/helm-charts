@@ -3,6 +3,20 @@
 =================================================================================================================================================================
 =================================================================================================================================================================
 apt-get install python3-pip
+pip3 install -r requirements.tx
+
+You can create EFS and then create EFS-provisioner using helm and use the storageclass aws-efs then use this storageclass in elasticsearch values.yaml
+Steps for installing EFS provisioner using helm
+=================================================
+1. helm repo add stable https://charts.helm.sh/stable
+2. helm install efs-provisioner stable/efs-provisioner --set efsProvisioner.efsFileSystemId=fs-123456789 --set efsProvisioner.awsRegion=us-east-2
+3. kubectl get pods
+4. kubectl get sc
+
+OR
+
+
+apt-get install python3-pip
 pip3 install -r requirements.txt
 
 For Installing Elasticsearch you should create storageclass gp2 as given below:-
