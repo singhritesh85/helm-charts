@@ -104,7 +104,7 @@ initResources: {}
 networkHost: "0.0.0.0"
 
 volumeClaimTemplate:
-  storageClassName: gp2        #nfs-client    #use nfs-client storageclass for kops and gp2 storageclass for eks, for eks you need to create storageclass gp2 and for kops you can go with dynamic nfs-provisioner 
+  storageClassName: aws-efs  #gp2        #nfs-client    #use nfs-client storageclass for kops and gp2 storageclass for eks, for eks you need to create storageclass gp2 and for kops you can go with dynamic nfs-provisioner 
   accessModes: ["ReadWriteOnce"]
   resources:
     requests:
